@@ -94,7 +94,7 @@ int main() {
     // Load comments from file
     vector<string> comments = loadComments("reviews.txt");
     if (comments.size() < 8) {
-        cout << "Please include at least 12 comments in reviews.txt"
+        cout << "Please include at least 8 comments in reviews.txt"
              << "(2 per movie x 4 movies)." << endl;
         return 1;
     }
