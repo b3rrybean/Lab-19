@@ -66,7 +66,26 @@ public:
 
 // Helper function
 double randomRating() {
-    
+    return ((rand() % 41) + 10) / 10.0; // Generates 1.0-5.0 in 0.1 increments
+}
+
+// Read comments from external file
+vector<string> loadComments(string filename) {
+    ifstream file(filename);
+    vector<string> comments;
+    string line;
+
+    if (!file) {
+        cout << "Error opening " << filename << endl;
+        return comments;
+    }
+
+    while (getline(file, line)) {
+        if (!line.empty())
+        comments.push_back(line);
+    }
+    file.close();
+    return comments;
 }
 
 int main() {
@@ -81,6 +100,27 @@ int main() {
     }
 
     // Create multiple movies
+    vector<Movie> movies;
+    movies.push_back(Movie("Interstellar"));
+    movies.push_back(Movie("Fantastic Mr.Fox"));
+    movies.push_back(Movie("Titanic"));
+    movies.push_back(Movie("La La Land"));
 
+    // Assign 2 reviews per movie
+    int index = 0;
+    for (auto& movie : movies) {
+        for (int i = 0; i < 2; i++) {
+            double rating = randomRating();
+            string comment = comments[index++];
+            movie.addReview(rating, comment);
+        }
+    }
 
+    // Display all movies and their reviews
+    cout << "\n==== MOVIE REVIEWS ====\n";
+    for (const auto& movie : movies) {
+        movie.display();
+    }
+    
+    return 0;
 }
